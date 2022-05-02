@@ -85,11 +85,20 @@ def comprueba_colision(xb,yb,xn,yn):
         colision = False
     return colision
 def perdido_():
+    for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                for evento in pygame.event.get():
+                    se_ejecuta = False
     fo = pygame.font.Font("Dia10\pricedown bl.otf", 100)
     texto = fo.render(f"GAME OVER", True, (255, 255, 255))
     pantalla.blit(texto, (120, 200))
+    
 
 def ganado():
+    for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                for evento in pygame.event.get():
+                    se_ejecuta = False
     fo = pygame.font.Font("Dia10\pricedown bl.otf", 100)
     texto = fo.render(f"Has ganado", True, (255, 255, 255))
     pantalla.blit(texto, (120, 200))
@@ -160,11 +169,7 @@ while se_ejecuta:
             balavisible = False
             bala_y = 500
         jugador(jugador_x, jugador_y)  # cargamos el juego
-    else:
-        for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
-
-                se_ejecuta == False
+    else:            
         if not perdido:
             ganado()
         else:
