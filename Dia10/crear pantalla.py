@@ -9,13 +9,13 @@ pygame.init()
 pantalla = pygame.display.set_mode((800, 600))
 # Titulo e icono
 pygame.display.set_caption("Invasion Espacial")
-icono = pygame.image.load("icon.png")
+icono = pygame.image.load("Dia10\icon.png")
 pygame.display.set_icon(icono)
-fondo = pygame.image.load("img-espacio.jpg")
+fondo = pygame.image.load("Dia10\img-espacio.jpg")
 # Programamos que la pantalla se muestre hasta que se cierre
 se_ejecuta = True
 # creamos el jugador
-img_jugador = pygame.image.load("cohete-espacial.png")
+img_jugador = pygame.image.load("Dia10\cohete-espacial.png")
 jugador_x = 368  # la mitad-su tamaño
 jugador_y = 500
 jugador_x_cambio = 0
@@ -27,13 +27,13 @@ enemigo_y = []
 enemigo_x_cambio = []
 cantidad_enemigos = 8
 for e in range(cantidad_enemigos):
-    img_enemigo.append(pygame.image.load("nave-alien.png"))
+    img_enemigo.append(pygame.image.load("Dia10\\nave-alien.png"))
     enemigo_x.append(100*e)  # la mitad-su tamaño
     enemigo_y.append(64)
     enemigo_x_cambio.append(0.1)
 
 # creamos las balas
-bala = pygame.image.load("laser (1).png")
+bala = pygame.image.load("Dia10\laser (1).png")
 bala = pygame.transform.rotate(bala, +90)
 bala_x = 0
 bala_y = 500
@@ -41,12 +41,12 @@ balavisible = False
 colision = False
 
 puntuaje = 0
-fuente = pygame.font.Font('pricedown bl.otf',32)
+fuente = pygame.font.Font('Dia10\pricedown bl.otf',32)
 texto_x = 600
 texto_y = 20
 
 #agregar musica
-mixer.music.load("MusicaFondo.mp3")
+mixer.music.load("Dia10\MusicaFondo.mp3")
 mixer.music.play(-1)
 
 #comprobar si hemos perdido
@@ -78,19 +78,19 @@ def comprueba_colision(xb,yb,xn,yn):
         global puntuaje
         bala_y=-11
         puntuaje += 1
-        sonido_colision = mixer.Sound('GunShotGun 1012_46_4_preview (mp3cut.net) (1).mp3')
+        sonido_colision = mixer.Sound('Dia10\GunShotGun 1012_46_4_preview (mp3cut.net) (1).mp3')
         sonido_colision.play()
 
     else:
         colision = False
     return colision
 def perdido_():
-    fo = pygame.font.Font("pricedown bl.otf", 100)
+    fo = pygame.font.Font("Dia10\pricedown bl.otf", 100)
     texto = fo.render(f"GAME OVER", True, (255, 255, 255))
     pantalla.blit(texto, (120, 200))
 
 def ganado():
-    fo = pygame.font.Font("pricedown bl.otf", 100)
+    fo = pygame.font.Font("Dia10\pricedown bl.otf", 100)
     texto = fo.render(f"Has ganado", True, (255, 255, 255))
     pantalla.blit(texto, (120, 200))
 while se_ejecuta:
@@ -105,15 +105,15 @@ while se_ejecuta:
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_RIGHT:
                     img_jugador = pygame.transform.rotate(img_jugador, -90)
-                    jugador_x_cambio = 0.1
+                    jugador_x_cambio = 1
                 if evento.key == pygame.K_LEFT:
                     img_jugador = pygame.transform.rotate(img_jugador, +90)
-                    jugador_x_cambio = -0.1
+                    jugador_x_cambio = -1
                 if evento.key == pygame.K_SPACE:
                     if not balavisible:
                         bala_x = jugador_x
                         disparo(bala_x, bala_y)
-                        sonido_bala = mixer.Sound('disparo.mp3')
+                        sonido_bala = mixer.Sound('Dia10\disparo.mp3')
                         sonido_bala.play()
             if evento.type == pygame.KEYUP:
                 if evento.key == pygame.K_LEFT:
@@ -122,7 +122,7 @@ while se_ejecuta:
                 if evento.key == pygame.K_RIGHT:
                     img_jugador = pygame.transform.rotate(img_jugador, +90)
                     jugador_x_cambio = 0
-                    fondo = None
+                    
 
         # modificar ubicacion jugador
         jugador_x += jugador_x_cambio
@@ -135,12 +135,12 @@ while se_ejecuta:
             jugador_x = 800 - 64
         # movimiento de la bala
         if balavisible:
-            bala_y -= 0.1
+            bala_y -= 1
             disparo(bala_x, bala_y)
         # modificar ubicacion enemigo
         for a in range(cantidad_enemigos):
             if img_enemigo[a] is not None:
-                enemigo_x[a] += (0.5 * enemigo_x_cambio[a])
+                enemigo_x[a] += (2 * enemigo_x_cambio[a])
                 if enemigo_x[a] >= 800 - 64:
                     enemigo_x_cambio[a] *= -1
                     enemigo_y[a] += 75
